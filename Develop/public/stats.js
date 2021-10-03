@@ -1,3 +1,13 @@
+function totalDuration(data) {
+  let durations = [];
+  data.forEach(workout => {
+    workout.exercises.forEach(exercise => {
+      durations.push(exercise.duration);
+    });
+  });
+  return durations;
+}
+
 function calculateTotalWeight(data) {
   const totals = [];
 
@@ -16,7 +26,7 @@ function calculateTotalWeight(data) {
 }
 
 function populateChart(data) {
-  const durations = data.map(({ totalDuration }) => totalDuration);
+  const durations = totalDuration(data);
   const pounds = calculateTotalWeight(data);
 
   const line = document.querySelector('#canvas').getContext('2d');
