@@ -1,9 +1,47 @@
 const router = require('express').Router();
+const db = require("../../models");
 
-// Import Routes
-// const usersRoutes = require('./users-routes');
+/* /api Endpoint */
 
-// Establish Routers
-// router.use('/users', usersRoutes);
+// Total duration calculation function
+// function calculateTotal(data) {
+//     const mappedData = data.map((item) => {
+//         const durations = item.exercises[0].duration;
+//         return durations
+//     })
+//     data.totalDuration = mappedData.reduce((a, b) => a + b, 0);
+//     console.log(data.totalDuration);
+//     return data
+// };
+
+// GET all workouts
+router.get("/workouts", async (req, res) => {
+    try {
+        // Query the database for all workouts
+        const data = await db.Workout.find({})
+        // Calculate total workout duration and update returned query
+        data.map(item => {
+            let total = 0;
+                item.exercises.map(exercise => {
+                    total += exercise.duration;
+                });
+                item.totalDuration = total;
+            });
+
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// GET all workouts for graph
+router.get("/workouts/range", async (req, res) => {
+    try {
+        const data = await db.Workout.find({});
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;

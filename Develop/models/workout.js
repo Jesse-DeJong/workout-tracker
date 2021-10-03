@@ -38,7 +38,10 @@ const WorkoutSchema = new Schema({
                 type: Number
             }
         }
-    ]
+    ],
+    totalDuration: {
+        type: Number
+    }
 });
 
 // Initialise Schema
