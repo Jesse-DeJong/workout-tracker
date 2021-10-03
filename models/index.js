@@ -1,5 +1,5 @@
 // Import Mongoose Models
-const Workout = require("./Workout");
+const Workout = require("./workout");
 
 // Export to app
 module.exports = {
