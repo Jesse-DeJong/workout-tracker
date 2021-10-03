@@ -44,4 +44,31 @@ router.get("/workouts/range", async (req, res) => {
     }
 });
 
+// POST new workout
+router.post("/workouts", (req, res) => {
+    
+    try {
+        db.Workout.create(req.body);
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+router.put("/workouts/:id", (req, res) => {
+    console.log(req.body);
+    try {
+        db.findOneAndUpdate(
+            { _id: params.id },
+            {
+                $inc: {totalDuration: req.body.duration },
+                $push: { exercises: req.body }
+            },
+            { new: true}).then(data=>res.status(200).json(data))
+            
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
 module.exports = router;
