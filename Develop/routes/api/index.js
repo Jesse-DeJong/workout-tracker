@@ -3,17 +3,6 @@ const db = require("../../models");
 
 /* /api Endpoint */
 
-// Total duration calculation function
-// function calculateTotal(data) {
-//     const mappedData = data.map((item) => {
-//         const durations = item.exercises[0].duration;
-//         return durations
-//     })
-//     data.totalDuration = mappedData.reduce((a, b) => a + b, 0);
-//     console.log(data.totalDuration);
-//     return data
-// };
-
 // GET all workouts
 router.get("/workouts", async (req, res) => {
     try {
