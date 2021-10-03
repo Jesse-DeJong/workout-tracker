@@ -55,19 +55,21 @@ router.post("/workouts", (req, res) => {
     }
 })
 
-router.put("/workouts/:id", (req, res) => {
+router.put("/workouts/:id", async (req, res) => {
     console.log(req.body);
+    console.log(req.params.id);
     try {
-        db.findOneAndUpdate(
-            { _id: params.id },
+        const data = await db.Workout.findByIdAndUpdate(
+            { _id: req.params.id },
             {
-                $inc: {totalDuration: req.body.duration },
                 $push: { exercises: req.body }
             },
-            { new: true}).then(data=>res.status(200).json(data))
-            
-    } catch (err) {
+            { new: true }
+        )
+        res.status(204).json(data);
+        } catch (err) {
         res.status(500).json(err);
+        console.log(err);
     }
 })
 
